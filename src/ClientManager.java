@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.*;
 
 
-
+@SuppressWarnings("unchecked")
 public class ClientManager implements Runnable {
     private Socket client_socket;
     Integer client_id;
