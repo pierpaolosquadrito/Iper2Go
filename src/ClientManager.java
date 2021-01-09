@@ -117,7 +117,7 @@ public class ClientManager implements Runnable {
                                 System.out.println("Peso inserito: "+ peso);
                                 Prodotto p = new Prodotto(nomeprodotto,scadenza,prezzo,reparto,peso);
                                 prodotti.inserisciProdotto(p);
-                                pw.println("\nIper2Go: Prodotto inserito correttamente");
+                                pw.println("Iper2Go: Prodotto inserito correttamente");
                                 pw.flush();
                                 break;
                             }
@@ -133,7 +133,7 @@ public class ClientManager implements Runnable {
                                 pw.flush();
                                 break;
                             }else{
-                                pw.println("\nIper2Go: Prodotto non trovato");
+                                pw.println("Iper2Go: Prodotto non trovato");
                                 pw.flush();
                                 break;
                             }
@@ -149,7 +149,7 @@ public class ClientManager implements Runnable {
                                 pw.flush();
                                 break;
                             }else{
-                                pw.println("\nIper2Go: Prodotto non presente nel magazzino. Impossibile eliminarlo");
+                                pw.println("Iper2Go: Prodotto non presente nel magazzino. Impossibile eliminarlo");
                                 pw.flush();
                                 break;
                             }
@@ -170,7 +170,7 @@ public class ClientManager implements Runnable {
                         case 5: {
                             System.out.println("\nSalvataggio su file");
                             prodotti.salvaSuFile();
-                                pw.println("\nIper2Go: Salvataggio eseguito con successo");
+                                pw.println("Iper2Go: Salvataggio eseguito con successo");
                                 pw.flush();
                                 break;
                         }

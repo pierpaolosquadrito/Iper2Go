@@ -232,7 +232,7 @@ public class Client {
                                     pw.println(peso);
                                     pw.flush();
                                     String conferma_inserimento = br.readLine();
-                                    System.out.println(conferma_inserimento);
+                                    System.out.println("\n"+conferma_inserimento);
                                     ciclo = false;
                                     break;
                                 } catch (Exception e) {
@@ -251,7 +251,7 @@ public class Client {
                         br = new BufferedReader(new InputStreamReader(client.getInputStream()));
                         String conferma = br.readLine();
                         if (conferma.equalsIgnoreCase("Iper2Go: Prodotto non trovato")){
-                            System.out.println("Iper2Go: Prodotto non trovato");
+                            System.out.println("\nIper2Go: Prodotto non trovato");
                             break;
                         }
                         System.out.println("\nProdotto trovato : ");
@@ -274,11 +274,11 @@ public class Client {
                         boolean go1 = true;
                         Scanner sc = new Scanner(client.getInputStream());
                         String msg;
-
+                        System.out.println("Elenco dei prodotti : ");
                         while (go1) {
                             msg = sc.nextLine();
                             if (msg.equals("STOP")) {
-                                System.out.println("Fine lista");
+                                System.out.println("Fine lista Prodotti\n");
                                 go1 = false;
                             } else {
                                 System.out.println(msg);
@@ -295,7 +295,7 @@ public class Client {
 
                     case 0: {
                         System.out.println("\nChiusura del programma...");
-                        System.out.println("\nArrivederci");
+                        System.out.println("Arrivederci");
                         client.close();
                         exit(-1);
                         break;
