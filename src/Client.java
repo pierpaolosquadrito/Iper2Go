@@ -80,6 +80,9 @@ public class Client {
         }
         //AUTENTICAZIONE OK
         System.out.println("\nBenvenuto" +nomeutente);
+        PrintWriter pw = new PrintWriter(client.getOutputStream());
+        BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        Scanner input = new Scanner(System.in);
         while (go) {
             try {
                 System.out.println("*********************************");
@@ -92,10 +95,9 @@ public class Client {
                 System.out.println("0-Uscita dal programma");
                 System.out.println("*********************************");
                 System.out.println("\nScegliere un'opzione: ");
-                Scanner input = new Scanner(System.in);
+              
                 int scelta = Integer.parseInt(input.nextLine());
-                PrintWriter pw = new PrintWriter(client.getOutputStream());
-                BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+
                 pw.println(scelta);
                 pw.flush();
                 switch (scelta) {

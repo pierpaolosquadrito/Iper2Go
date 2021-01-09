@@ -94,6 +94,7 @@ public class ClientManager implements Runnable {
                     int scelta = Integer.parseInt(br.readLine());
                     System.out.println("Operazione da eseguire: " + scelta);
 
+
                     switch (scelta){
                         //AGGIUNTA
                         case 1: {
