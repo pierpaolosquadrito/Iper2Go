@@ -66,8 +66,8 @@ public class Client {
             msg_received=br.readLine();
             //System.out.println("DEBUG: Messaggio ricevuto dal server: " +msg_received);
             if (msg_received.equals("CHECK_OK")){
-                System.out.println("\nAutenticazione Avvenuta con successo!");
-                System.out.println("\nBenvenuto "+nomeutente);
+                System.out.println("\n Autenticazione Avvenuta con successo!");
+                System.out.println("\n Benvenuto "+nomeutente);
                 go=true;
                 autenticazione=false;
             }
