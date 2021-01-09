@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 import static java.lang.System.exit;
@@ -68,7 +67,7 @@ public class Client {
             //System.out.println("DEBUG: Messaggio ricevuto dal server: " +msg_received);
             if (msg_received.equals("CHECK_OK")){
                 System.out.println("\nAutenticazione Avvenuta con successo!");
-                System.out.println("Benvenuto "+nomeutente);
+                System.out.println("\nBenvenuto "+nomeutente);
                 go=true;
                 autenticazione=false;
             }
@@ -80,7 +79,6 @@ public class Client {
             }
         }
         //AUTENTICAZIONE OK
-        System.out.println("\nBenvenuto" +nomeutente);
         PrintWriter pw = new PrintWriter(client.getOutputStream());
         BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
         Scanner input = new Scanner(System.in);
@@ -98,9 +96,9 @@ public class Client {
                 System.out.println("\nScegliere un'opzione: ");
 
                 int scelta = Integer.parseInt(input.nextLine());
-
                 pw.println(scelta);
                 pw.flush();
+
                 switch (scelta) {
                     case 1: {  // AGGIUNTA
                         System.out.println("\nInserisci il nome del prodotto: ");
@@ -113,73 +111,98 @@ public class Client {
                                 || conferma_prodotto.equalsIgnoreCase("Prodotto precedentemente inserito nel sistema"))
                             break;
                         else {
-                            System.out.println("\nSeleziona il Reparto in cui inserire il prodotto: ");
-                            System.out.println("1- Bevande");
-                            System.out.println("2- Conserve");
-                            System.out.println("3- Dolci");
-                            System.out.println("4- Formaggi");
-                            System.out.println("5- Ortofrutta");
-                            System.out.println("6- Pescheria");
-                            System.out.println("7- Macelleria");
-                            System.out.println("8- Salumeria");
-                            System.out.println("9- Salati");
-                            System.out.println("10- Surgelati");
+                            int sceltareparto;
+                            boolean ciclo = true;
+                            while (ciclo) {
+                                System.out.println("\nSeleziona il Reparto in cui inserire il prodotto: ");
+                                System.out.println("1- Bevande");
+                                System.out.println("2- Conserve");
+                                System.out.println("3- Dolci");
+                                System.out.println("4- Formaggi");
+                                System.out.println("5- Ortofrutta");
+                                System.out.println("6- Pescheria");
+                                System.out.println("7- Macelleria");
+                                System.out.println("8- Salumeria");
+                                System.out.println("9- Salati");
+                                System.out.println("10- Surgelati");
+                                sceltareparto = Integer.parseInt(input.nextLine());
+                                switch (sceltareparto) {
+                                    case 1: {
+                                        nomereparto = "Bevande";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 2: {
+                                        nomereparto = "Conserve";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 3: {
+                                        nomereparto = "Dolci";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 4: {
+                                        nomereparto = "Formaggi";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 5: {
+                                        nomereparto = "Ortofrutta";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 6: {
+                                        nomereparto = "Pescheria";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 7: {
+                                        nomereparto = "Macelleria";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 8: {
+                                        nomereparto = "Salumeria";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 9: {
+                                        nomereparto = "Salati";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    case 10: {
+                                        nomereparto = "Surgelati";
+                                        ciclo = false;
+                                        break;
+                                    }
+                                    default: {
+                                        System.out.println("Errore: Devi inserire un valore tra 1 e 10");
 
-                            int sceltareparto = Integer.parseInt(input.nextLine());
-                            switch (sceltareparto){
-                                case 1:{
-                                    nomereparto = "Bevande";
-                                    break;
-                                }
-                                case 2:{
-                                    nomereparto= "Conserve";
-                                    break;
-                                }
-                                case 3:{
-                                    nomereparto= "Dolci";
-                                    break;
-                                }
-                                case 4:{
-                                    nomereparto="Formaggi";
-                                    break;
-                                }
-                                case 5:{
-                                    nomereparto="Ortofrutta";
-                                    break;
-                                }
-                                case 6:{
-                                    nomereparto="Pescheria";
-                                    break;
-                                }
-                                case 7:{
-                                    nomereparto="Macelleria";
-                                    break;
-                                }
-                                case 8:{
-                                    nomereparto="Salumeria";
-                                    break;
-                                }
-                                case  9:{
-                                    nomereparto="Salati";
-                                    break;
-                                }
-                                case  10:{
-                                    nomereparto="Surgelati";
-                                    break;
+                                    }
                                 }
                             }
                             pw.println(nomereparto);
                             pw.flush();
                             //INSERIMENTO PREZZO
-                            System.out.println("\nInserisci il prezzo del prodotto[x.x][€]: ");
-                            prezzo = Double.parseDouble(input.nextLine());
-                            pw.println(prezzo);
-                            pw.flush();
+                            ciclo = true;
+                            while (ciclo) {
+                                try {
+                                    System.out.println("\nInserisci il prezzo del prodotto[x.x][€]: ");
+                                    prezzo = Double.parseDouble(input.nextLine());
+                                    pw.println(prezzo);
+                                    pw.flush();
+                                    ciclo = false;
+                                } catch (Exception e) {
+                                    System.out.println("Errore: Formato non corretto, inserisci il prezzo nel formato di Esempio '1.5'");
+                                }
+                            }
 
                             // CONTROLLO INSERIMENTO SCADENZA
-                            Boolean ok = true;
+                            ciclo = true;
                             //INSERIMENTO SCADENZA
-                            while (ok){
+                            while (ciclo) {
                                 System.out.println("\nInserisci scadenza prodotto [GG/MM/AA]: ");
                                 scadenza = input.nextLine();
                                 String dataodierna = df.format(new Date());
@@ -188,27 +211,38 @@ public class Client {
                                     Date date1 = format.parse(scadenza);
                                     Date date2 = format.parse(dataodierna);
 
-                                if(date1.compareTo(date2)<=0) {
-                                    System.out.println("\nLa data inserita è precedente alla data odierna, per favore reinserisci la data di scadenza");
-                                }
-                                else{
-                                    pw.println(scadenza);
-                                    pw.flush();
-                                    ok = false;
-                                }   }catch (ParseException w){
-                                    w.printStackTrace();
+                                    if (date1.compareTo(date2) <= 0) {
+                                        System.out.println("\nErrore: La data inserita è precedente alla data odierna, per favore reinserisci la data di scadenza");
+                                    } else {
+                                        pw.println(scadenza);
+                                        pw.flush();
+                                        ciclo = false;
                                     }
+                                } catch (ParseException w) {
+                                    System.out.println("Errore: Inserisci la data di scadenza nel formato dd/mm/yy");
+
+                                }
                             }
                             //INSERIMENTO PESO
-                            System.out.println("\nInserisci peso prodotto [x.x][kg]: ");
-                            peso = Double.parseDouble(input.nextLine());
-                            pw.println(peso);
-                            pw.flush();
-                            String conferma_inserimento = br.readLine();
-                            System.out.println(conferma_inserimento);
-                            break;
+                            ciclo = true;
+                            while (ciclo) {
+                                try {
+                                    System.out.println("\nInserisci peso prodotto [x.x][kg]: ");
+                                    peso = Double.parseDouble(input.nextLine());
+                                    pw.println(peso);
+                                    pw.flush();
+                                    String conferma_inserimento = br.readLine();
+                                    System.out.println(conferma_inserimento);
+                                    ciclo = false;
+                                    break;
+                                } catch (Exception e) {
+                                    System.out.println("Errore: Formato non corretto, inserisci il peso nel formato di Esempio '1.5'");
+                                }
+                            }
                         }
+                        break;
                     }
+
                     case 2: {
                         System.out.println("\nInserisci il nome del prodotto da cercare: ");
                         nomeprodotto = input.nextLine();
@@ -266,12 +300,14 @@ public class Client {
                         exit(-1);
                         break;
                     }
+                    default: {
+                        System.out.println("Attenzione, puoi scegliere una voce del menù tra 0 e 5");
+                    }
 
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Devi inserire un numero e non una stringa");
-                input.nextLine();
-                //e.printStackTrace();
+            } catch (NumberFormatException e) {
+                System.out.println("Seleziona una voce del menù inserendone il relativo numero");
+
             }
         }
     }

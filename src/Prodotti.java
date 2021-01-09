@@ -46,7 +46,7 @@ public class Prodotti {
         try {
             ordinaListaProdotti();
             last_modification = new Date().toString();
-            FileWriter fw = new FileWriter("Iper2go_Listaprodotti"+last_modification+".txt");
+            FileWriter fw = new FileWriter("Iper2go_Listaprodotti_"+last_modification+".txt");
             BufferedWriter bw = new BufferedWriter(fw);
             for (Prodotto p : prodotti) {
                 bw.write(p.toString());

@@ -94,7 +94,6 @@ public class ClientManager implements Runnable {
                     int scelta = Integer.parseInt(br.readLine());
                     System.out.println("Operazione da eseguire: " + scelta);
 
-
                     switch (scelta){
                         //AGGIUNTA
                         case 1: {
@@ -118,7 +117,7 @@ public class ClientManager implements Runnable {
                                 System.out.println("Peso inserito: "+ peso);
                                 Prodotto p = new Prodotto(nomeprodotto,scadenza,prezzo,reparto,peso);
                                 prodotti.inserisciProdotto(p);
-                                pw.println("Iper2Go: Prodotto inserito correttamente");
+                                pw.println("\nIper2Go: Prodotto inserito correttamente");
                                 pw.flush();
                                 break;
                             }
@@ -134,7 +133,7 @@ public class ClientManager implements Runnable {
                                 pw.flush();
                                 break;
                             }else{
-                                pw.println("Iper2Go: Prodotto non trovato");
+                                pw.println("\nIper2Go: Prodotto non trovato");
                                 pw.flush();
                                 break;
                             }
@@ -171,7 +170,7 @@ public class ClientManager implements Runnable {
                         case 5: {
                             System.out.println("\nSalvataggio su file");
                             prodotti.salvaSuFile();
-                                pw.println("Iper2Go: Salvataggio eseguito con successo");
+                                pw.println("\nIper2Go: Salvataggio eseguito con successo");
                                 pw.flush();
                                 break;
                         }
