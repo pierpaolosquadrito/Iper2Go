@@ -61,7 +61,7 @@ public class ClientManager implements Runnable {
                 System.out.println("Stampa nomeutente ricevuto:" + nomeutente);
                 String password = msg_scanner.next();
                 System.out.println("Stampa password ricevuta:" + password);
-                if (nomeutente.equals("superuser") && password.equals("1")) {
+                if (nomeutente.equals("superuser") && password.equals("1234")) {
                     System.out.println("Controllo avvenuto con Successo");
                     pw.println("CHECK_OK");
                     pw.flush();
