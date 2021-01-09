@@ -171,7 +171,7 @@ public class ClientManager implements Runnable {
                     }
                 } catch (IOException e) {
                     System.out.println("Client_"+client_id+" si è disconnesso");
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
         }
