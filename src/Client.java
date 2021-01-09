@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 import static java.lang.System.exit;
@@ -95,7 +96,7 @@ public class Client {
                 System.out.println("0-Uscita dal programma");
                 System.out.println("*********************************");
                 System.out.println("\nScegliere un'opzione: ");
-              
+
                 int scelta = Integer.parseInt(input.nextLine());
 
                 pw.println(scelta);
@@ -183,8 +184,10 @@ public class Client {
                                 scadenza = input.nextLine();
                                 String dataodierna = df.format(new Date());
                                 SimpleDateFormat format = new SimpleDateFormat("dd/mm/yy");
-                                Date date1 = format.parse(scadenza);
-                                Date date2 = format.parse(dataodierna);
+                                try {
+                                    Date date1 = format.parse(scadenza);
+                                    Date date2 = format.parse(dataodierna);
+
                                 if(date1.compareTo(date2)<=0) {
                                     System.out.println("\nLa data inserita è precedente alla data odierna, per favore reinserisci la data di scadenza");
                                 }
@@ -192,7 +195,9 @@ public class Client {
                                     pw.println(scadenza);
                                     pw.flush();
                                     ok = false;
-                                }
+                                }   }catch (ParseException w){
+                                    w.printStackTrace();
+                                    }
                             }
                             //INSERIMENTO PESO
                             System.out.println("\nInserisci peso prodotto [x.x][kg]: ");
@@ -263,8 +268,10 @@ public class Client {
                     }
 
                 }
-            } catch (IOException | ParseException e) {
-                e.printStackTrace();
+            } catch (InputMismatchException e) {
+                System.out.println("Devi inserire un numero e non una stringa");
+                input.nextLine();
+                //e.printStackTrace();
             }
         }
     }
