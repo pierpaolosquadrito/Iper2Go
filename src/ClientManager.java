@@ -64,7 +64,7 @@ public class ClientManager implements Runnable {
                     pw.println("CHECK_OK");
                     pw.flush();
                     check = false;
-                    System.out.println("Avvio Menù");
+                    System.out.println("Avvio Menù per Client"+client_id);
                 } else {
                     System.out.println("Iper2Go: Utente amministratore non trovato");
                     pw.println("CHECK_ERROR");
