@@ -70,18 +70,6 @@ public class ClientManager implements Runnable {
                     pw.println("CHECK_ERROR");
                     pw.flush();
                 }
-                // SE C'È IL MATCH
-                /*if(aut.cercaUtente(nomeutente,password)){
-                    System.out.println("Controllo avvenuto con successo");
-                    pw.println("CHECK_OK");
-                    pw.flush();
-                    autenticazione = false;
-                    go = true;
-                }else{
-                    System.out.println("Utente non trovato");
-                    pw.println("CHECK_ERROR");
-                    pw.flush();
-                }*/
             }
         } while(check);
             //FUNZIONI SUPERUSER
