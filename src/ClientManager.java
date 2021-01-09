@@ -43,10 +43,8 @@ public class ClientManager implements Runnable {
             e.printStackTrace();
             return;
         }
-
+        
         // PROCESSO DI AUTENTICAZIONE
-
-
         boolean check = true;
         boolean go= true;
         do {
