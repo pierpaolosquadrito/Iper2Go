@@ -53,7 +53,6 @@ public class ClientManager implements Runnable {
             Scanner msg_scanner = new Scanner(message);
             String cmd = msg_scanner.next();
             System.out.println("Comando Ricevuto: " + cmd);
-
             if (cmd.equals("CHECK")) {
                 String nomeutente = msg_scanner.next();
                 System.out.println("Stampa nomeutente ricevuto:" + nomeutente);
