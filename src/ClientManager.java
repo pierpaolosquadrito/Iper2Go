@@ -111,7 +111,7 @@ public class ClientManager implements Runnable {
                             nomeprodotto= br.readLine();
                             System.out.println("\nNome prodotto inserito: " + nomeprodotto);
                             pw = new PrintWriter(client_socket.getOutputStream());
-                            if(prodotti.cercaProdotto(nomeprodotto)){
+                            if(prodotti.restituisciProdotto(nomeprodotto)!=null){
                                 System.out.println(prodotti.prodotto_trovato);
                                 pw.println(prodotti.prodotto_trovato);
                                 pw.flush();
