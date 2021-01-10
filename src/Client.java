@@ -81,7 +81,7 @@ public class Client {
         Scanner input = new Scanner(System.in);
         while (go) {
             try {
-                
+
                 System.out.println("*********************************");
                 System.out.println("-Seleziona una voce per iniziare");
                 System.out.println("1-Aggiungi prodotto");
