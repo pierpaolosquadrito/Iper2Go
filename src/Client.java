@@ -346,7 +346,7 @@ public class Client {
                         break;
                     }
                     default: {
-                        System.out.println("Attenzione, puoi scegliere una voce del menù tra 0 e 5");
+                        System.out.println("Attenzione, puoi scegliere una voce del menù tra 0 e 6");
                     }
                 }
             } catch (NumberFormatException e) {
