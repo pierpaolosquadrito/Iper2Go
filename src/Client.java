@@ -8,8 +8,6 @@ import java.util.Locale;
 import java.util.Scanner;
 import static java.lang.System.exit;
 
-
-
 public class Client {
 
     public static void main(String[] args) throws IOException {
@@ -19,9 +17,8 @@ public class Client {
         String nomereparto="";
         double peso;
         String nomeutente = null;
+        Float quantita;
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
-
-
 
         if (args.length != 2) {
             System.out.println("Inserire l'indirizzo e il numero di porta");
@@ -89,8 +86,9 @@ public class Client {
                 System.out.println("1-Aggiungi prodotto");
                 System.out.println("2-Ricerca prodotto ");
                 System.out.println("3-Rimuovi prodotto");
-                System.out.println("4-Visualizza elenco prodotti");
-                System.out.println("5-Salva su File");
+                System.out.println("4-Aggiorna quantità prodotti in magazzino");
+                System.out.println("5-Visualizza elenco prodotti");
+                System.out.println("6-Salva su File");
                 System.out.println("0-Uscita dal programma");
                 System.out.println("*********************************");
                 System.out.println("\nScegliere un'opzione: ");
@@ -98,6 +96,7 @@ public class Client {
                 int scelta = Integer.parseInt(input.nextLine());
                 pw.println(scelta);
                 pw.flush();
+                boolean ciclo = true;
 
                 switch (scelta) {
                     case 1: {  // AGGIUNTA
@@ -108,11 +107,11 @@ public class Client {
                         String conferma_prodotto = br.readLine();
                         System.out.println(conferma_prodotto);
                         if (conferma_prodotto.equalsIgnoreCase("Impossibili inserire il prodotto nel sistema")
-                                || conferma_prodotto.equalsIgnoreCase("Prodotto precedentemente inserito nel sistema"))
+                                || conferma_prodotto.equalsIgnoreCase("Iper2Go: Prodotto già inserito nel sistema. Verrà aggiunta una nuova unità"))
                             break;
                         else {
                             int sceltareparto;
-                            boolean ciclo = true;
+                            ciclo = true;
                             while (ciclo) {
                                 System.out.println("\nSeleziona il Reparto in cui inserire il prodotto: ");
                                 System.out.println("1- Bevande");
@@ -179,7 +178,6 @@ public class Client {
                                     }
                                     default: {
                                         System.out.println("Errore: Devi inserire un valore tra 1 e 10");
-
                                     }
                                 }
                             }
@@ -220,7 +218,6 @@ public class Client {
                                     }
                                 } catch (ParseException w) {
                                     System.out.println("Errore: Inserisci la data di scadenza nel formato dd/mm/yy");
-
                                 }
                             }
                             //INSERIMENTO PESO
@@ -231,12 +228,25 @@ public class Client {
                                     peso = Double.parseDouble(input.nextLine());
                                     pw.println(peso);
                                     pw.flush();
+                                    ciclo = false;
+                                } catch (Exception e) {
+                                    System.out.println("Errore: Formato non corretto, inserisci il peso nel formato di Esempio '1.5'");
+                                }
+                            }
+                            //Inserimento QUANTITa'
+                            ciclo = true;
+                            while(ciclo) {
+                                try{
+                                    System.out.println("\nInserisci quantità da aggiungere a magazzino [x]");
+                                    quantita=Float.parseFloat(input.nextLine());
+                                    pw.println(quantita);
+                                    pw.flush();
                                     String conferma_inserimento = br.readLine();
                                     System.out.println("\n"+conferma_inserimento);
                                     ciclo = false;
                                     break;
-                                } catch (Exception e) {
-                                    System.out.println("Errore: Formato non corretto, inserisci il peso nel formato di Esempio '1.5'");
+                                }catch (Exception e){
+                                    System.out.println("Errore: Formato non corretto, inserisci la Quantità nel formato di Esempio '12'");
                                 }
                             }
                         }
@@ -244,55 +254,90 @@ public class Client {
                     }
 
                     case 2: {
-                        System.out.println("\nInserisci il nome del prodotto da cercare: ");
-                        nomeprodotto = input.nextLine();
-                        pw.println(nomeprodotto);
-                        pw.flush();
-                        br = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                        String conferma = br.readLine();
-                        if (conferma.equalsIgnoreCase("Iper2Go: Prodotto non trovato")){
-                            System.out.println("\nIper2Go: Prodotto non trovato");
-                            break;
+                        ciclo = true;
+                        while (ciclo) {
+                            try {
+                                System.out.println("\nInserisci il nome del prodotto da cercare: ");
+                                nomeprodotto = input.nextLine();
+                                pw.println(nomeprodotto);
+                                pw.flush();
+                                br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                                String conferma = br.readLine();
+                                if (conferma.equalsIgnoreCase("Iper2Go: Prodotto non trovato")) {
+                                    System.out.println("\nIper2Go: Prodotto non trovato");
+                                    ciclo = false;
+                                    break;
+                                }
+                                System.out.println("\nProdotto trovato : ");
+                                System.out.println(conferma);
+                                ciclo = false;
+                                break;
+                            }catch (Exception e){
+                                System.out.println("Errore nell'inserimento");
+                            }
                         }
-                        System.out.println("\nProdotto trovato : ");
-                        System.out.println(conferma);
                         break;
                     }
 
                     case 3: {
-                        System.out.println("\nNome del prodotto da eliminare: ");
-                        nomeprodotto = input.nextLine();
-                        pw.println(nomeprodotto);
-                        pw.flush();
-                        String conferma = br.readLine();
-                        System.out.println(conferma);
+                        ciclo=true;
+                        while (ciclo) {
+                            try {
+                                System.out.println("\nInserisci il nome del prodotto da eliminare: ");
+                                nomeprodotto = input.nextLine();
+                                pw.println(nomeprodotto);
+                                pw.flush();
+                                String conferma = br.readLine();
+                                System.out.println(conferma);
+                                ciclo=false;
+                                break;
+                            }catch (Exception e){
+                                System.out.println("Errore nell'inserimento");
+                            }
+                        }
                         break;
                     }
 
-                    case 4: {
-
-                        boolean go1 = true;
+                    case 4:{
+                        ciclo=true;
+                        while (ciclo) {
+                            try {
+                                System.out.println("\nInserisci il nome del prodotto di cui modificare la quantità presente in magazzino: ");
+                                pw.println(nomeprodotto = input.nextLine());
+                                pw.flush();
+                                System.out.println("\nInserisci la quantità da aggiungere o rimuovere dal totale: ");
+                                pw.println(quantita = Float.parseFloat(input.nextLine()));
+                                pw.flush();
+                                System.out.println(br.readLine());
+                                ciclo=false;
+                                break;
+                            }catch (Exception e){
+                                System.out.println("Errore nell'inserimento");
+                            }
+                        }
+                        break;
+                    }
+                    case 5: {
+                        ciclo=true;
                         Scanner sc = new Scanner(client.getInputStream());
                         String msg;
                         System.out.println("Elenco dei prodotti : ");
-                        while (go1) {
+                        while (ciclo) {
                             msg = sc.nextLine();
                             if (msg.equals("STOP")) {
                                 System.out.println("Fine lista Prodotti\n");
-                                go1 = false;
+                                ciclo = false;
                             } else {
                                 System.out.println(msg);
                             }
                         }
                         break;
                     }
-
-                    case 5:{
+                    case 6:{
                         System.out.println("\nSalvataggio su file in corso");
                         System.out.println(br.readLine());
                         break;
                     }
-
                     case 0: {
                         System.out.println("\nChiusura del programma...");
                         System.out.println("Arrivederci");
@@ -303,11 +348,9 @@ public class Client {
                     default: {
                         System.out.println("Attenzione, puoi scegliere una voce del menù tra 0 e 5");
                     }
-
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Seleziona una voce del menù inserendone il relativo numero");
-
             }
         }
     }

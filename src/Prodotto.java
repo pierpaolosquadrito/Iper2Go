@@ -4,13 +4,15 @@ public class Prodotto implements Comparable<Prodotto> {
     Double prezzo;
     String reparto;
     Double peso;
+    Float quantita;
 
-    public Prodotto (String nomeprodotto, String scadenza, Double prezzo, String reparto, Double peso){
+    public Prodotto (String nomeprodotto, String scadenza, Double prezzo, String reparto, Double peso, Float quantita){
         this.setNomeprodotto(nomeprodotto);
         this.setScadenza(scadenza);
         this.setPrezzo(prezzo);
         this.setReparto(reparto);
         this.setPeso(peso);
+        this.setQuantita(quantita);
     }
 
     public String getNomeprodotto() {
@@ -41,6 +43,14 @@ public class Prodotto implements Comparable<Prodotto> {
         return reparto;
     }
 
+    public Float getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(Float quantita) {
+        this.quantita = quantita;
+    }
+
     public void setReparto(String reparto) {
         this.reparto = reparto;
     }
@@ -60,6 +70,7 @@ public class Prodotto implements Comparable<Prodotto> {
                         "\nPrezzo: €" + getPrezzo() +
                         "\nReparto: " + getReparto() +
                         "\nPeso: " + getPeso() +"kg" +
+                        "\nQuantità in magazzino: " + getQuantita() +
                         "\n***********************";
     }
 
