@@ -146,18 +146,18 @@ public class ClientManager implements Runnable {
                             quantita=Float.parseFloat(br.readLine());
                             System.out.println("Quantità inserita: " + quantita);
                             pw = new PrintWriter(client_socket.getOutputStream());
-                            Integer ritorno = prodotti.aggiornaQuantita(nomeprodotto,quantita);
-                            if(ritorno==1){
+                            Float ritorno = prodotti.aggiornaQuantita(nomeprodotto,quantita);
+                            if(ritorno==1.50){
                                 pw.println("Iper2Go: Prodotto rimosso dal magazzino");
                                 pw.flush();
                                 break;
                             }
-                            if (ritorno==2){
-                                pw.println("Iper2Go: Quantità in magazzino aggiornata");
+                            if (ritorno!=null){
+                                pw.println("Iper2Go: Quantità in magazzino aggiornata, attualmente in magazzino sono presenti: " + ritorno + " unità di " +nomeprodotto);
                                 pw.flush();
                                 break;
                             }
-                            if (ritorno==3){
+                            if (ritorno==3.50){
                                 pw.println("Iper2Go: Prodotto non presente in magazzino");
                                 pw.flush();
                                 break;

@@ -55,21 +55,21 @@ public class  Prodotti {
         return null;
     }
 
-    public synchronized int aggiornaQuantita(String nomeprodotto, Float quantita) {
+    public synchronized float aggiornaQuantita(String nomeprodotto, Float quantita) {
         prodotto_trovato = restituisciProdotto(nomeprodotto);
         if(prodotto_trovato!=null){
         Float temp = prodotto_trovato.getQuantita();
         temp += quantita;
         if(temp <= 0){
             eliminaProdotto(prodotto_trovato);
-            return 1;
+            return (float) 1.50;
         }else{
             prodotto_trovato.setQuantita(temp);
-            return 2;
+            return temp;
         }
         }
         last_modification = new Date().toString();
-        return 3;
+        return (float) 3.50;
     }
 
     public void ordinaListaProdotti() {
