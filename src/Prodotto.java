@@ -66,12 +66,12 @@ public class Prodotto implements Comparable<Prodotto> {
     public String toString() {
         return
                 "Nome del Prodotto: " + getNomeprodotto() +
-                        "\nScadenza: " + getScadenza() +
-                        "\nPrezzo: €" + getPrezzo() +
-                        "\nReparto: " + getReparto() +
-                        "\nPeso: " + getPeso() +"kg" +
-                        "\nQuantità in magazzino: " + getQuantita() +
-                        "\n***********************";
+                        "  Scadenza: " + getScadenza() +
+                        "  Prezzo: €" + getPrezzo() +
+                        "  Reparto: " + getReparto() +
+                        "  Peso: " + getPeso() +"kg" +
+                        "  Quantità in magazzino: " + getQuantita() +
+                        "\n***********************\n";
     }
 
     @Override

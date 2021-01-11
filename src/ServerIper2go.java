@@ -1,10 +1,6 @@
-import javax.xml.namespace.QName;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ServerIper2go {
     ServerSocket socket;
@@ -12,10 +8,6 @@ public class ServerIper2go {
     private int port;
     private int client_id=0;
     Prodotti prodotti = new Prodotti();
-    // DICHIARAZIONE DELLA LISTA CONDIVISA
-
-
-
 
     public static void main(String args[]){
         if (args.length!=1){
@@ -45,11 +37,9 @@ public class ServerIper2go {
                 t.start();
                 client_id++;
             }
-
         } catch (IOException e) {
             System.out.println("Non è stato possibile avviare il server sulla porta "+port);
             e.printStackTrace();
         }
-
     }
 }

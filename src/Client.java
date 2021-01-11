@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+
+
 import static java.lang.System.exit;
 
 public class Client {
@@ -262,7 +264,6 @@ public class Client {
                                 nomeprodotto = input.nextLine();
                                 pw.println(nomeprodotto);
                                 pw.flush();
-                                br = new BufferedReader(new InputStreamReader(client.getInputStream()));
                                 String conferma = br.readLine();
                                 if (conferma.equalsIgnoreCase("Iper2Go: Prodotto non trovato")) {
                                     System.out.println("\nIper2Go: Prodotto non trovato");

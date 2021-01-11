@@ -111,9 +111,10 @@ public class ClientManager implements Runnable {
                             nomeprodotto= br.readLine();
                             System.out.println("\nNome prodotto inserito: " + nomeprodotto);
                             pw = new PrintWriter(client_socket.getOutputStream());
-                            if(prodotti.restituisciProdotto(nomeprodotto)!=null){
-                                System.out.println(prodotti.prodotto_trovato);
-                                pw.println(prodotti.prodotto_trovato);
+                            Prodotto p = prodotti.restituisciProdotto(nomeprodotto);
+                            if(p!=null){
+                                System.out.println(p);
+                                pw.println(p);
                                 pw.flush();
                                 break;
                             }else{
@@ -167,7 +168,7 @@ public class ClientManager implements Runnable {
                         case 5: {
                             ArrayList<Prodotto> prod = prodotti.visualizzaListaProdotti();
                             for (Prodotto p : prod) {
-                                pw.println(p.toString());
+                                pw.println(p);
                                 pw.flush();
                             }
                             pw.println("STOP");
@@ -177,14 +178,15 @@ public class ClientManager implements Runnable {
                         case 6: {
                             System.out.println("\nSalvataggio su file");
                             prodotti.salvaSuFile();
-                                pw.println("Iper2Go: Salvataggio eseguito con successo");
-                                pw.flush();
-                                break;
+                            pw.println("Iper2Go: Salvataggio eseguito con successo");
+                            pw.flush();
+                            break;
                         }
                         //USCITA
                         case  0: {
                             System.out.println("\nChiusura di Iper2Go per il client :" + client_id);
                             System.out.println(new Date().toString());
+                            prodotti.salvaSuFile();
                             client_socket.close();
                             go=false;
                             break;
