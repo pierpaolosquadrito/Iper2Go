@@ -83,7 +83,6 @@ public class Client {
         Scanner input = new Scanner(System.in);
         while (go) {
             try {
-
                 System.out.println("*********************************");
                 System.out.println("-Seleziona una voce per iniziare");
                 System.out.println("1-Aggiungi prodotto");
@@ -100,11 +99,13 @@ public class Client {
                 pw.println(scelta);
                 pw.flush();
                 boolean ciclo = true;
-
                 switch (scelta) {
                     case 1: {  // AGGIUNTA
                         System.out.println("\nInserisci il nome del prodotto: ");
                         nomeprodotto = input.nextLine();
+                        while(nomeprodotto.isEmpty()){
+                            nomeprodotto = input.nextLine();
+                        }
                         pw.println(nomeprodotto);
                         pw.flush();
                         String conferma_prodotto = br.readLine();
@@ -313,7 +314,7 @@ public class Client {
                                 System.out.println(br.readLine());
                                 ciclo=false;
                                 break;
-                            }catch (Exception e){
+                            }catch (Exception e ){
                                 System.out.println("Errore nell'inserimento");
                             }
                         }

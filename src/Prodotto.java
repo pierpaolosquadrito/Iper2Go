@@ -70,8 +70,7 @@ public class Prodotto implements Comparable<Prodotto> {
                         "  Prezzo: €" + getPrezzo() +
                         "  Reparto: " + getReparto() +
                         "  Peso: " + getPeso() +"kg" +
-                        "  Quantità in magazzino: " + getQuantita() +
-                        "\n***********************\n";
+                        "  Quantità in magazzino: " + getQuantita();
     }
 
     @Override

@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class  Prodotti {
+public class  Prodotti implements Serializable{
 
     ArrayList<Prodotto> prodotti = new ArrayList<Prodotto>();
     Prodotto prodotto_trovato = null;
@@ -12,7 +12,9 @@ public class  Prodotti {
         last_modification = new Date().toString();
         prodotti.add(p);
     }
-    //RESTITUISCE SOLO TRUE O FALSE
+
+
+    //RESTITUISCE Boolean
     public synchronized boolean cercaProdotto(String nomeprodotto) {
         for (Prodotto p : prodotti) {
             if (p.getNomeprodotto().equalsIgnoreCase(nomeprodotto)) {
@@ -30,6 +32,8 @@ public class  Prodotti {
         return prodotti.size();
     }
 
+
+
     public synchronized void incrementaQuantita(String nomeprodotto){
         for (Prodotto p : prodotti) {
             if (p.getNomeprodotto().equalsIgnoreCase(nomeprodotto)) {
@@ -43,10 +47,13 @@ public class  Prodotti {
         }
         last_modification = new Date().toString();
     }
+
+
+
     //RESTITUISCE OGGETTO
     public synchronized Prodotto restituisciProdotto(String nomeprodotto){
         for (Prodotto p : prodotti) {
-            if (p.getNomeprodotto().equalsIgnoreCase(nomeprodotto)) {
+            if (p.getNomeprodotto().contains(nomeprodotto)) {
                 //prodotto_trovato = p;
                 last_modification = new Date().toString();
                 return p;
@@ -55,22 +62,24 @@ public class  Prodotti {
         return null;
     }
 
-    public synchronized float aggiornaQuantita(String nomeprodotto, Float quantita) {
+    public synchronized String aggiornaQuantita(String nomeprodotto, Float quantita) {
         prodotto_trovato = restituisciProdotto(nomeprodotto);
         if(prodotto_trovato!=null){
         Float temp = prodotto_trovato.getQuantita();
+        String ritorno;
         temp += quantita;
         if(temp <= 0){
             eliminaProdotto(prodotto_trovato);
-            return (float) 1.50;
+            return "CANC";
         }else{
             prodotto_trovato.setQuantita(temp);
-            return temp;
+            return ritorno= temp.toString();
         }
         }
         last_modification = new Date().toString();
-        return (float) 3.50;
+        return "VUOTO";
     }
+
 
     public void ordinaListaProdotti() {
         Collections.sort(prodotti);
@@ -85,6 +94,7 @@ public class  Prodotti {
         last_modification = new Date().toString();
         prodotti.remove(p);
     }
+
 
     public synchronized void salvaSuFile() {
         try {

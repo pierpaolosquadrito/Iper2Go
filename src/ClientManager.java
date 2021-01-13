@@ -25,7 +25,6 @@ public class ClientManager implements Runnable {
         this.prodotti= prodotti;
         this.client_id=client_id;
     }
-
     @Override
     public void run() {
         String tid = Thread.currentThread().getName();
@@ -70,99 +69,86 @@ public class ClientManager implements Runnable {
             //FUNZIONI SUPERUSER
         while (go) {
                 try {
-                    InputStreamReader is = new InputStreamReader(client_socket.getInputStream());
-                    BufferedReader br = new BufferedReader(is);
-                    int scelta = Integer.parseInt(br.readLine());
+                    int scelta = Integer.parseInt(client_scanner.nextLine());
                     System.out.println("Operazione da eseguire: " + scelta);
-
                     switch (scelta){
                         //AGGIUNTA
                         case 1: {
-                            nomeprodotto = br.readLine();
+                            nomeprodotto = client_scanner.nextLine();
                             System.out.println("Nome prodotto ricevuto:" + nomeprodotto);
-                            pw = new PrintWriter(client_socket.getOutputStream());
                             if(prodotti.cercaProdotto(nomeprodotto)){
                                 pw.println("Iper2Go: Prodotto già inserito nel sistema. Verrà aggiunta una nuova unità");
                                 pw.flush();
                                 prodotti.incrementaQuantita(nomeprodotto);
-                                break;
                             }else{
                                 pw.println("Iper2Go: Avvio procedura inserimento di un nuovo prodotto");
                                 pw.flush();
-                                reparto= br.readLine();
+                                reparto= client_scanner.nextLine();
                                 System.out.println("Reparto inserito: " + reparto);
-                                prezzo = Double.parseDouble(br.readLine()); // DA VERIFICARE FUNZIONAMENTO
+                                prezzo = Double.parseDouble(client_scanner.nextLine()); // DA VERIFICARE FUNZIONAMENTO
                                 System.out.println("Prezzo inserito: "+ prezzo);
-                                scadenza = br.readLine();
+                                scadenza = client_scanner.nextLine();
                                 System.out.println("Scadenza inserita: "+ scadenza);
-                                peso = Double.parseDouble(br.readLine());
+                                peso = Double.parseDouble(client_scanner.nextLine());
                                 System.out.println("Peso inserito: "+ peso);
-                                quantita = Float.parseFloat(br.readLine());
+                                quantita = Float.parseFloat(client_scanner.nextLine());
                                 System.out.println("Quantità inserita: "+ quantita);
                                 Prodotto p = new Prodotto(nomeprodotto,scadenza,prezzo,reparto,peso,quantita);
                                 prodotti.inserisciProdotto(p);
                                 pw.println("Iper2Go: Prodotto inserito correttamente");
                                 pw.flush();
-                                break;
                             }
+                            break;
                         }
                         //Prodotto da cercare
                         case 2:{
-                            nomeprodotto= br.readLine();
+                            nomeprodotto= client_scanner.nextLine();
                             System.out.println("\nNome prodotto inserito: " + nomeprodotto);
-                            pw = new PrintWriter(client_socket.getOutputStream());
                             Prodotto p = prodotti.restituisciProdotto(nomeprodotto);
                             if(p!=null){
                                 System.out.println(p);
                                 pw.println(p);
-                                pw.flush();
-                                break;
                             }else{
                                 pw.println("Iper2Go: Prodotto non trovato");
-                                pw.flush();
-                                break;
                             }
+                            pw.flush();
+                            break;
                         }
                         //Rimozione prodotto
                         case 3: {
-                            nomeprodotto= br.readLine();
+                            nomeprodotto= client_scanner.nextLine();
                             System.out.println("\nNome del prodotto inserito: " + nomeprodotto);
-                            pw = new PrintWriter(client_socket.getOutputStream());
                             if (prodotti.cercaProdotto(nomeprodotto)){
                                 prodotti.eliminaProdotto(prodotti.prodotto_trovato);
                                 pw.println("Iper2Go: Prodotto ->" +nomeprodotto+ "<- eliminato dal sistema");
-                                pw.flush();
-                                break;
                             }else{
                                 pw.println("Iper2Go: Prodotto non presente nel magazzino. Impossibile eliminarlo");
-                                pw.flush();
-                                break;
                             }
+                            pw.flush();
+                            break;
                         }
                         //Aggiorna quantità prodotto
                         case 4: {
-                            nomeprodotto=br.readLine();
+                            nomeprodotto=client_scanner.nextLine();
                             System.out.println("\nNome del prodotto inserito: " + nomeprodotto);
-                            quantita=Float.parseFloat(br.readLine());
+                            quantita=Float.parseFloat(client_scanner.nextLine());
                             System.out.println("Quantità inserita: " + quantita);
-                            pw = new PrintWriter(client_socket.getOutputStream());
-                            Float ritorno = prodotti.aggiornaQuantita(nomeprodotto,quantita);
-                            if(ritorno==1.50){
+                            String ritorno = prodotti.aggiornaQuantita(nomeprodotto,quantita);
+                            if(ritorno.equalsIgnoreCase("CANC")){
                                 pw.println("Iper2Go: Prodotto rimosso dal magazzino");
                                 pw.flush();
                                 break;
                             }
-                            if (ritorno!=null){
-                                pw.println("Iper2Go: Quantità in magazzino aggiornata, attualmente in magazzino sono presenti: " + ritorno + " unità di " +nomeprodotto);
-                                pw.flush();
-                                break;
-                            }
-                            if (ritorno==3.50){
+                            else if (ritorno.equalsIgnoreCase("VUOTO")){
                                 pw.println("Iper2Go: Prodotto non presente in magazzino");
                                 pw.flush();
                                 break;
                             }
-                            break;
+                            else{
+                                pw.println("Iper2Go: Quantità in magazzino aggiornata, attualmente in magazzino sono presenti: " + ritorno + " unità di " +nomeprodotto);
+                                pw.flush();
+                                break;
+                            }
                         }
                         //VISUALIZZA elenco
                         case 5: {
@@ -171,14 +157,20 @@ public class ClientManager implements Runnable {
                                 pw.println(p);
                                 pw.flush();
                             }
+                            pw.println( "Prodotti totali: " +prodotti.quantitaProdotti());
                             pw.println("STOP");
                             pw.flush();
                             break;
                         }
                         case 6: {
                             System.out.println("\nSalvataggio su file");
-                            prodotti.salvaSuFile();
-                            pw.println("Iper2Go: Salvataggio eseguito con successo");
+                            if (prodotti.quantitaProdotti()==0){
+                                pw.println("Iper2Go: Lista vuota, impossibile salvare");
+                            }
+                            else {
+                                prodotti.salvaSuFile();
+                                pw.println("Iper2Go: Salvataggio eseguito con successo");
+                            }
                             pw.flush();
                             break;
                         }
