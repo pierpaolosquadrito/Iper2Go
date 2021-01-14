@@ -38,7 +38,7 @@ public class  Prodotti implements Serializable{
         for (Prodotto p : prodotti) {
             if (p.getNomeprodotto().equalsIgnoreCase(nomeprodotto)) {
                 prodotto_trovato = p;
-                Float b = prodotto_trovato.getQuantita();
+                Integer b = prodotto_trovato.getQuantita();
                 b++;
                 prodotto_trovato.setQuantita(b);
                 last_modification = new Date().toString();
@@ -62,10 +62,10 @@ public class  Prodotti implements Serializable{
         return null;
     }
 
-    public synchronized String aggiornaQuantita(String nomeprodotto, Float quantita) {
+    public synchronized String aggiornaQuantita(String nomeprodotto, Integer quantita) {
         prodotto_trovato = restituisciProdotto(nomeprodotto);
         if(prodotto_trovato!=null){
-        Float temp = prodotto_trovato.getQuantita();
+        Integer temp = prodotto_trovato.getQuantita();
         String ritorno;
         temp += quantita;
         if(temp <= 0){

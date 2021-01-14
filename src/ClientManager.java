@@ -17,7 +17,7 @@ public class ClientManager implements Runnable {
     Double prezzo;
     String reparto;
     Double peso;
-    Float quantita;
+    Integer quantita;
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
     public ClientManager(Socket myclient, Prodotti prodotti,Integer client_id) {
@@ -91,7 +91,7 @@ public class ClientManager implements Runnable {
                                 System.out.println("Scadenza inserita: "+ scadenza);
                                 peso = Double.parseDouble(client_scanner.nextLine());
                                 System.out.println("Peso inserito: "+ peso);
-                                quantita = Float.parseFloat(client_scanner.nextLine());
+                                quantita = Integer.parseInt(client_scanner.nextLine());
                                 System.out.println("Quantità inserita: "+ quantita);
                                 Prodotto p = new Prodotto(nomeprodotto,scadenza,prezzo,reparto,peso,quantita);
                                 prodotti.inserisciProdotto(p);
@@ -131,7 +131,7 @@ public class ClientManager implements Runnable {
                         case 4: {
                             nomeprodotto=client_scanner.nextLine();
                             System.out.println("\nNome del prodotto inserito: " + nomeprodotto);
-                            quantita=Float.parseFloat(client_scanner.nextLine());
+                            quantita=Integer.parseInt(client_scanner.nextLine());
                             System.out.println("Quantità inserita: " + quantita);
                             String ritorno = prodotti.aggiornaQuantita(nomeprodotto,quantita);
                             if(ritorno.equalsIgnoreCase("CANC")){

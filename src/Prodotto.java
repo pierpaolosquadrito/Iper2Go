@@ -4,9 +4,9 @@ public class Prodotto implements Comparable<Prodotto> {
     Double prezzo;
     String reparto;
     Double peso;
-    Float quantita;
+    Integer quantita;
 
-    public Prodotto (String nomeprodotto, String scadenza, Double prezzo, String reparto, Double peso, Float quantita){
+    public Prodotto (String nomeprodotto, String scadenza, Double prezzo, String reparto, Double peso, Integer quantita){
         this.setNomeprodotto(nomeprodotto);
         this.setScadenza(scadenza);
         this.setPrezzo(prezzo);
@@ -43,11 +43,11 @@ public class Prodotto implements Comparable<Prodotto> {
         return reparto;
     }
 
-    public Float getQuantita() {
+    public Integer getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(Float quantita) {
+    public void setQuantita(Integer quantita) {
         this.quantita = quantita;
     }
 

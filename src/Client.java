@@ -19,7 +19,7 @@ public class Client {
         String nomereparto="";
         double peso;
         String nomeutente = null;
-        Float quantita;
+        Integer quantita;
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
         if (args.length != 2) {
@@ -242,7 +242,7 @@ public class Client {
                             while(ciclo) {
                                 try{
                                     System.out.println("\nInserisci quantità da aggiungere a magazzino [x]");
-                                    quantita=Float.parseFloat(input.nextLine());
+                                    quantita=Integer.parseInt(input.nextLine());
                                     pw.println(quantita);
                                     pw.flush();
                                     String conferma_inserimento = br.readLine();
@@ -309,7 +309,7 @@ public class Client {
                                 pw.println(nomeprodotto = input.nextLine());
                                 pw.flush();
                                 System.out.println("\nInserisci la quantità da aggiungere o rimuovere dal totale: ");
-                                pw.println(quantita = Float.parseFloat(input.nextLine()));
+                                pw.println(quantita = Integer.parseInt(input.nextLine()));
                                 pw.flush();
                                 System.out.println(br.readLine());
                                 ciclo=false;
