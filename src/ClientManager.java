@@ -152,14 +152,21 @@ public class ClientManager implements Runnable {
                         }
                         //VISUALIZZA elenco
                         case 5: {
-                            ArrayList<Prodotto> prod = prodotti.visualizzaListaProdotti();
-                            for (Prodotto p : prod) {
-                                pw.println(p);
+                            if (prodotti.quantitaProdotti()==0) {
+                                pw.println("Iper2Go: Il magazzino è vuoto, impossibile visualizzare elenco prodotti, inserisci un nuovo prodotto");
+                                pw.println("STOP");
                                 pw.flush();
+                            }else {
+                                ArrayList<Prodotto> prod = prodotti.visualizzaListaProdotti();
+                                for (Prodotto p : prod) {
+                                    pw.println(p);
+                                    pw.flush();
+                                }
+                                pw.println("Prodotti totali: " + prodotti.quantitaProdotti());
+                                pw.println("STOP");
+                                pw.flush();
+                                break;
                             }
-                            pw.println( "Prodotti totali: " +prodotti.quantitaProdotti());
-                            pw.println("STOP");
-                            pw.flush();
                             break;
                         }
                         case 6: {
