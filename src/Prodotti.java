@@ -131,7 +131,7 @@ public class  Prodotti implements Serializable{
             } else {
                 ordinaListaProdotti();
                 last_modification = new Date().toString();
-                FileOutputStream filestream = new FileOutputStream("Iper2Go_Magazzino.ser");
+                FileOutputStream filestream = new FileOutputStream("src/Iper2Go_Magazzino.ser");
                 ObjectOutputStream os = new ObjectOutputStream(filestream);
                 os.writeObject(lista_prodotti);
                 os.close();
@@ -141,7 +141,7 @@ public class  Prodotti implements Serializable{
         }
     }
     public synchronized void caricaFile() throws IOException, ClassNotFoundException {
-        FileInputStream caricastream = new FileInputStream("Iper2Go_Magazzino.ser");
+        FileInputStream caricastream = new FileInputStream("src/Iper2Go_Magazzino.ser");
         ObjectInputStream os = new ObjectInputStream(caricastream);
         Object l = os.readObject();
         ArrayList<Prodotto> lista = (ArrayList<Prodotto>) l;
