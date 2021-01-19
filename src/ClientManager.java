@@ -11,7 +11,6 @@ public class ClientManager implements Runnable {
     private Socket client_socket;
     Integer client_id;
     private Prodotti prodotti;
-    //private Autenticazione aut;
     String nomeprodotto;
     String scadenza;
     Double prezzo;
@@ -20,10 +19,11 @@ public class ClientManager implements Runnable {
     Integer quantita;
     DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY);
 
-    public ClientManager(Socket myclient, Prodotti prodotti,Integer client_id) {
+    public ClientManager(Socket myclient, Prodotti prodotti,Integer client_id) throws IOException, ClassNotFoundException {
         client_socket= myclient;
         this.prodotti= prodotti;
         this.client_id=client_id;
+        prodotti.caricaFile();
     }
     @Override
     public void run() {
@@ -191,7 +191,7 @@ public class ClientManager implements Runnable {
                             break;
                         }
                     }
-                } catch (IOException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     System.out.println("Client_"+client_id+" si è disconnesso");
                     e.printStackTrace();
                 }

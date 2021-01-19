@@ -1,0 +1,2 @@
+Nome del Prodotto: Aranciata  Scadenza: 22/03/21  Prezzo: €1.3  Reparto: Bevande  Peso: 0.3kg  Quantità in magazzino: 12
+Nome del Prodotto: Galbanino  Scadenza: 22/03/21  Prezzo: €2.3  Reparto: Formaggi  Peso: 0.2kg  Quantità in magazzino: 20

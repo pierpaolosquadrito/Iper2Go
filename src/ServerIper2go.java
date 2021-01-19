@@ -37,7 +37,7 @@ public class ServerIper2go {
                 t.start();
                 client_id++;
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Non è stato possibile avviare il server sulla porta "+port);
             e.printStackTrace();
         }
